@@ -1,3 +1,4 @@
+import React from 'react';
 import HotelNavbar from './components/navigation/HotelNavbar';
 
 function App() {
