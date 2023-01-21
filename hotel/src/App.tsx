@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import HotelNavbar from './components/navigation/HotelNavbar';
-import ShowRooms from './components/rooms/ShowRooms';
+import Rooms from './components/rooms/Rooms';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/rooms",
-        element: <ShowRooms />
+        element: <Rooms />
       },
     ],
   },
