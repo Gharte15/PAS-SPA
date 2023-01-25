@@ -35,7 +35,7 @@ const HotelNavbar = () => {
           </Nav>
           <Form className="d-flex">
           <Link to="/changePassword">
-            <Button className="mx-1" variant="success">Change password</Button>
+            <Button className="mx-1" variant="success" >Change password</Button>
             </Link>
             <Link to="/login">
               <Button className="mx-1" variant="success">Login</Button>

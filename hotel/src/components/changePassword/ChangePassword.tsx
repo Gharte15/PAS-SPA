@@ -8,7 +8,9 @@ const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [changePasswordError, setchangePasswordError] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newPasswordError, setNewPasswordError] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
+  const [newConfirmPasswordError, setNewConfirmPasswordError] = useState("");
 
   //const dispatch = useAppDispatch();
   //const [loginUser] = useLoginMutation();
@@ -17,7 +19,8 @@ const ChangePassword = () => {
 
   const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
+    validateCompabilityNewPassswordConfirmPassword();
+    validateIfNewPasswordIsTheSameAsOldPassword(e);
     // loginUser({ login, password })
     //   .unwrap()
     //   .then((res) => {
@@ -27,6 +30,56 @@ const ChangePassword = () => {
     //   .catch((err) => {
     //     setLoginError(`Log in failed - ${err.data.message}`);
     //   });
+  };
+
+  const validatePasswordNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.target.value);
+    if (newPassword.length >= 9) {
+      setNewPasswordError("");
+      return true;
+    } else {
+      setNewPasswordError(
+        "Password must be at least 9 characters and contains only alphanumeric characters without diacritical marks."
+      );
+      return false;
+    }
+  };
+
+  const validateIfNewPasswordIsTheSameAsOldPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (newPassword != password) {
+      setNewPasswordError("");
+      return true;
+    } else {
+      setNewPasswordError(
+        "New password cannot be the same as the old password."
+      );
+      return false;
+    }
+  }
+
+
+  const validatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (password.length >= 9) {
+      setchangePasswordError("");
+      return true;
+    } else {
+      setchangePasswordError(
+        "Password must be at least 9 characters and contains only alphanumeric characters without diacritical marks."
+      );
+      return false;
+    }
+  };
+
+
+  const validateCompabilityNewPassswordConfirmPassword = () => {
+    if (newPassword === newConfirmPassword) {
+      setNewConfirmPasswordError("");
+      return true;
+    } else {
+      setNewConfirmPasswordError("Passwords do not match.");
+      return false;
+    }
   };
 
   return (
@@ -61,9 +114,8 @@ const ChangePassword = () => {
                 </div>
                 <MDBInput
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => validatePassword(e)}
                   type="password"
-                  label="*********"
                   id="password"
                   name="password"
                   size="lg"
@@ -71,21 +123,26 @@ const ChangePassword = () => {
                   wrapperClass="border-0"
                 />
               </div>
+              <div className="text-danger" style={{ fontSize: "12px" }}>
+                    {changePasswordError}
+              </div>
               <div className="password-group mb-2">
                 <div className="text-primary fw-bolder mb-2">
                   <label>New Password</label>
                 </div>
                 <MDBInput
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  onChange={(e) => validatePasswordNewPassword(e)}
                   type="password"
-                  label="*********"
                   id="password"
                   name="password"
                   size="lg"
                   className="bg-white"
                   wrapperClass="border-0"
                 />
+              </div>
+              <div className="text-danger" style={{ fontSize: "12px" }}>
+                    {newPasswordError}
               </div>
               <div className="password-group mb-2">
                 <div className="text-primary fw-bolder mb-2">
@@ -95,7 +152,6 @@ const ChangePassword = () => {
                   value={newConfirmPassword}
                   onChange={(e) => setNewConfirmPassword(e.target.value)}
                   type="password"
-                  label="*********"
                   id="password"
                   name="password"
                   size="lg"
@@ -103,8 +159,7 @@ const ChangePassword = () => {
                   wrapperClass="border-0"
                 />
               </div>
-
-              <p className="text-center mt-2 mb-4 text-danger">{changePasswordError}</p>
+              <p className="text-center mt-2 mb-4 text-danger">{newConfirmPasswordError}</p>
               
               <Button
                 className="mx-1"
