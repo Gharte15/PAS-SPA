@@ -34,8 +34,12 @@ const HotelNavbar = () => {
             </NavDropdown>
           </Nav>
           <Form className="d-flex">
-            <Button className="mx-1" variant="success">Register</Button>
-            <Button className="mx-1" variant="success">Login</Button>
+          <Link to="/changePassword">
+            <Button className="mx-1" variant="success">Change password</Button>
+            </Link>
+            <Link to="/login">
+              <Button className="mx-1" variant="success">Login</Button>
+            </Link>
           </Form>
         </Navbar.Collapse>
       </Container>
