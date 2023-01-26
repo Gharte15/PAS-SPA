@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 
 const ChangePassword = () => {
   const [login, setLogin] = useState("");
@@ -32,7 +31,7 @@ const ChangePassword = () => {
     //   });
   };
 
-  const validatePasswordNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validatePasswordNewPassword = (e: any) => {
     setNewPassword(e.target.value);
     if (newPassword.length >= 9) {
       setNewPasswordError("");
@@ -58,7 +57,7 @@ const ChangePassword = () => {
   }
 
 
-  const validatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validatePassword = (e: any) => {
     setPassword(e.target.value);
     if (password.length >= 9) {
       setchangePasswordError("");
@@ -85,94 +84,58 @@ const ChangePassword = () => {
   return (
     <>
       <div className="vh-100 d-flex login-template">
-        <MDBCol
-          size={12}
-          xl={6}
-        >
-          <div className="h-100 px-5" style={{paddingTop: '50px'}}>
+        <Col xl={6}>
+          <div className="h-100 px-5" style={{ paddingTop: '50px' }}>
             <h2 className="py-5 text-primary-dark-3">Change Password</h2>
 
             <form onSubmit={handleSubmit}>
-              <div className="login-group mb-4">
-                <div className="text-primary fw-bolder mb-2">
-                  <label>Login</label>
-                </div>
-                <MDBInput
+              <Form.Group>
+                <Form.Label className="text-primary fw-bolder mb-2">Login</Form.Label>
+                <Form.Control
                   value={login}
                   onChange={(e) => setLogin(e.target.value)}
                   type="login"
-                  label="e.g. MarkWick123"
-                  id="login"
-                  name="login"
-                  size="lg"
-                  className="bg-white"
+                  placeholder="e.g. MarkWick123"
                 />
-              </div>
-              <div className="password-group mb-2">
-                <div className="text-primary fw-bolder mb-2">
-                  <label>Password</label>
-                </div>
-                <MDBInput
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="text-primary fw-bolder mb-2">Password</Form.Label>
+                <Form.Control
                   value={password}
                   onChange={(e) => validatePassword(e)}
                   type="password"
-                  id="password"
-                  name="password"
-                  size="lg"
-                  className="bg-white"
-                  wrapperClass="border-0"
                 />
-              </div>
+              </Form.Group>
               <div className="text-danger" style={{ fontSize: "12px" }}>
-                    {changePasswordError}
+                {changePasswordError}
               </div>
-              <div className="password-group mb-2">
-                <div className="text-primary fw-bolder mb-2">
-                  <label>New Password</label>
-                </div>
-                <MDBInput
+              <Form.Group>
+                <Form.Label className="text-primary fw-bolder mb-2">New Password</Form.Label>
+                <Form.Control
                   value={newPassword}
                   onChange={(e) => validatePasswordNewPassword(e)}
                   type="password"
-                  id="password"
-                  name="password"
-                  size="lg"
-                  className="bg-white"
-                  wrapperClass="border-0"
                 />
-              </div>
+              </Form.Group>
               <div className="text-danger" style={{ fontSize: "12px" }}>
-                    {newPasswordError}
+                {newPasswordError}
               </div>
-              <div className="password-group mb-2">
-                <div className="text-primary fw-bolder mb-2">
-                  <label>Confirm New Password</label>
-                </div>
-                <MDBInput
+              <Form.Group>
+                <Form.Label className="text-primary fw-bolder mb-2">Confirm New Password</Form.Label>
+                <Form.Control
                   value={newConfirmPassword}
                   onChange={(e) => setNewConfirmPassword(e.target.value)}
                   type="password"
-                  id="password"
-                  name="password"
-                  size="lg"
-                  className="bg-white"
-                  wrapperClass="border-0"
                 />
-              </div>
+              </Form.Group>
               <p className="text-center mt-2 mb-4 text-danger">{newConfirmPasswordError}</p>
-              
-              <Button
-                className="mx-1"
-                type="submit"
-              >
+
+              <Button variant="primary" type="submit">
                 Change password
               </Button>
-
-              <span style={{ fontSize: "12px", padding: "10px 20px" }}></span>
-              <span style={{ fontSize: "12px" }}></span>
             </form>
           </div>
-        </MDBCol>
+        </Col>
       </div>
     </>
   );

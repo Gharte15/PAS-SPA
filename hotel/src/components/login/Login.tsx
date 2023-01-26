@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
+// import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 
 const Login = () => {
   const [login, setLogin] = useState("");
@@ -30,23 +30,22 @@ const Login = () => {
   return (
     <>
       <div className="vh-100 d-flex login-template">
-        <MDBCol
-          size={12}
+        <Col
+          xs={12}
           xl={6}
         >
-          <div className="h-100 px-5" style={{paddingTop: '50px'}}>
+          <div className="h-100 px-5" style={{ paddingTop: '50px' }}>
             <h2 className="py-5 text-primary-dark-3">Login</h2>
-
             <form onSubmit={handleSubmit}>
               <div className="login-group mb-4">
                 <div className="text-primary fw-bolder mb-2">
                   <label>Login</label>
                 </div>
-                <MDBInput
+                <Form.Control
                   value={login}
                   onChange={(e) => setLogin(e.target.value)}
                   type="login"
-                  label="e.g. MarkWick123"
+                  placeholder="e.g. KTumulec"
                   id="login"
                   name="login"
                   size="lg"
@@ -57,21 +56,20 @@ const Login = () => {
                 <div className="text-primary fw-bolder mb-2">
                   <label>Password</label>
                 </div>
-                <MDBInput
+                <Form.Control
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
-                  label="*********"
+                  placeholder="*********"
                   id="password"
                   name="password"
                   size="lg"
                   className="bg-white"
-                  wrapperClass="border-0"
                 />
               </div>
 
               <p className="text-center mt-2 mb-4 text-danger">{loginError}</p>
-              
+
               <Button
                 className="mx-1"
                 type="submit"
@@ -83,7 +81,7 @@ const Login = () => {
               <span style={{ fontSize: "12px" }}></span>
             </form>
           </div>
-        </MDBCol>
+        </Col>
       </div>
     </>
   );
