@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
+import authService from "../../services/auth.service";
 
 const ChangePassword = () => {
   const [login, setLogin] = useState("");
@@ -83,6 +84,7 @@ const ChangePassword = () => {
 
   return (
     <>
+    {authService.getUserRole() !== 'NONE' &&
       <div className="vh-100 d-flex login-template">
         <Col xl={6}>
           <div className="h-100 px-5" style={{ paddingTop: '50px' }}>
@@ -137,6 +139,7 @@ const ChangePassword = () => {
           </div>
         </Col>
       </div>
+    }
     </>
   );
 };

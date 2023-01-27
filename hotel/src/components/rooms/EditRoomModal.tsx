@@ -6,7 +6,7 @@ import { Room } from "../../types"
 
 const API_URL_ROOMS = REST_API_URL + 'rooms/';
 
-const EditRoomModal = (room: any, onEdit: (room: Room) => void) => {
+const EditRoomModal = (room: Room, onEdit: (room: Room) => any) => {
   const [show, setShow] = useState(false);
   const [editedRoom, setEditedRoom] = useState<Room>({ ...room });
 
@@ -15,11 +15,11 @@ const EditRoomModal = (room: any, onEdit: (room: Room) => void) => {
   };
 
   const handleSave = () => {
-    axios.put('https://reqres.in/api/articles/1', editedRoom)
-      // .then(res => onEdit(editedRoom));
+    console.log(editedRoom);
+    axios.put(API_URL_ROOMS, editedRoom)
+      .then(res => onEdit(editedRoom));
     setShow(false);
-    
-    // onEdit(editedRoom);
+    onEdit(editedRoom);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

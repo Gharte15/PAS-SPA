@@ -2,42 +2,19 @@ import React, { useState } from "react";
 // import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
-import axios from "axios";
-import { REST_API_URL } from "../../constants/global";
-
-const API_URL_LOGIN = REST_API_URL + 'login'
+import authService from "../../services/auth.service";
 
 const Login = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  //const dispatch = useAppDispatch();
-  // const [loginUser] = useLoginMutation();
-
   const navigate = useNavigate();
-
-  const loginUser = () => {
-    const loginPayload = {
-      login,
-      password
-    }
-
-    axios.post(API_URL_LOGIN, loginPayload)
-    .then(response => {
-      const jwtToken = response.data;
-      sessionStorage.setItem("token", jwtToken);
-      // console.log(sessionStorage.getItem("token"));
-      navigate("/");
-    })
-    .catch((err) => {
-      setLoginError(`Log in failed - ${err.data.message}`);
-    });
-  }
 
   const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    loginUser();
+    authService.login(login, password);
+    navigate("/");
   };
 
   return (
