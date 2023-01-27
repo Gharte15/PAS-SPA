@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Room } from "../../types"
 import { Button, Container, Form, Row, Table } from 'react-bootstrap';
 import EditRoomModal from './EditRoomModal';
+import { REST_API_URL } from '../../constants/global';
 
-const API_URL_ROOMS = "https://localhost:8181/PAS_Rest_API-1.0-SNAPSHOT/api/rooms/";
+const API_URL_ROOMS = REST_API_URL + 'rooms/';
 
 const Rooms = () => {
   const [rooms, setRooms] = useState<Room[]>([]);

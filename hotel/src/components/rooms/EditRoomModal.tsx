@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { REST_API_URL } from '../../constants/global';
 import { Room } from "../../types"
 
-const API_URL_ROOMS = "https://localhost:8181/PAS_Rest_API-1.0-SNAPSHOT/api/rooms/";
+const API_URL_ROOMS = REST_API_URL + 'rooms/';
 
 const EditRoomModal = (room: any, onEdit: (room: Room) => void) => {
   const [show, setShow] = useState(false);

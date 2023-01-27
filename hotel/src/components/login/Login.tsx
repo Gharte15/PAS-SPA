@@ -2,6 +2,10 @@ import React, { useState } from "react";
 // import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
+import axios from "axios";
+import { REST_API_URL } from "../../constants/global";
+
+const API_URL_LOGIN = REST_API_URL + 'login'
 
 const Login = () => {
   const [login, setLogin] = useState("");
@@ -9,22 +13,31 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
 
   //const dispatch = useAppDispatch();
-  //const [loginUser] = useLoginMutation();
+  // const [loginUser] = useLoginMutation();
 
   const navigate = useNavigate();
 
+  const loginUser = () => {
+    const loginPayload = {
+      login,
+      password
+    }
+
+    axios.post(API_URL_LOGIN, loginPayload)
+    .then(response => {
+      const jwtToken = response.data;
+      sessionStorage.setItem("token", jwtToken);
+      // console.log(sessionStorage.getItem("token"));
+      navigate("/");
+    })
+    .catch((err) => {
+      setLoginError(`Log in failed - ${err.data.message}`);
+    });
+  }
+
   const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    // loginUser({ login, password })
-    //   .unwrap()
-    //   .then((res) => {
-    //     dispatch(setToken(res.access_token));
-    //     navigate("/products");
-    //   })
-    //   .catch((err) => {
-    //     setLoginError(`Log in failed - ${err.data.message}`);
-    //   });
+    loginUser();
   };
 
   return (
@@ -40,6 +53,7 @@ const Login = () => {
               <div className="login-group mb-4">
                 <div className="text-primary fw-bolder mb-2">
                   <label>Login</label>
+                  <p>{loginError}</p>
                 </div>
                 <Form.Control
                   value={login}
