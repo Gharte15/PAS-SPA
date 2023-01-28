@@ -2,12 +2,17 @@ import React, { useState } from "react";
 // import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
-import authService from "../../services/auth/auth.service";
+import { authService } from "../../services/auth/auth.service";
+import { createStore, useGlobalState } from 'state-pool'; 
+
+const store = createStore();
+store.setState("userRole", "NONE");
 
 const Login = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [userRole, setUserRole] = useState("userRole");
 
   const navigate = useNavigate();
 

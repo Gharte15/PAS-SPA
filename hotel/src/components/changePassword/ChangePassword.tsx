@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
-import authService from "../../services/auth/auth.service";
+import { authService } from "../../services/auth/auth.service";
 import changePasswordService from "../../services/changePassword/changePassword.service"
 
 const ChangePassword = () => {
   const [login, setLogin] = useState("");
+  const [currentRole, setCurrentRole] = useState<any>()
   const [password, setPassword] = useState("");
   const [changePasswordError, setchangePasswordError] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -14,6 +15,10 @@ const ChangePassword = () => {
   const [newConfirmPasswordError, setNewConfirmPasswordError] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    authService.currentRole.subscribe((value) => setCurrentRole(value))
+  });
 
   const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -76,7 +81,7 @@ const ChangePassword = () => {
 
   return (
     <>
-    {authService.getUserRole() !== 'NONE' &&
+    {currentRole !== 'NONE' &&
       <div className="vh-100 d-flex login-template">
         <Col xl={6}>
           <div className="h-100 px-5" style={{ paddingTop: '50px' }}>

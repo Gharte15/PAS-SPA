@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Room } from "../../types"
@@ -5,15 +6,19 @@ import { Button, Container, Form, Row, Table } from 'react-bootstrap';
 import EditRoomModal from './EditRoomModal';
 import { REST_API_URL } from '../../constants/global';
 import authHeader from '../../services/auth/auth-header';
-import authService from '../../services/auth/auth.service';
+import { authService } from '../../services/auth/auth.service';
 
 const API_URL_ROOMS = REST_API_URL + 'rooms/';
 
 const Rooms = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [currentRole, setCurrentRole] = useState<any>()
   const [roomData, setRoomData] = useState({});
 
   useEffect(() => {
+    authService.currentRole.subscribe((value) => setCurrentRole(value))
+
+    // authService.currentRole.subscribe((value) => setCurrentRole(value)), 
     getAllRooms();
   }, []);
 
@@ -33,10 +38,10 @@ const Rooms = () => {
       })
   }
 
-  const handleEdit = (room: Room) => {
-    const del = rooms.filter(r => room.uuid !== r.uuid)
-    setRooms(del)
-  }
+  // const handleEdit = (room: Room) => {
+  //   const del = rooms.filter(r => room.uuid !== r.uuid)
+  //   setRooms(del)
+  // }
 
   const handleChangeInAddModal = (event: ChangeEvent<HTMLInputElement>) => {
     setRoomData({ ...roomData, [event.target.name]: event.target.value })
@@ -56,10 +61,10 @@ const Rooms = () => {
 
   return (
     <Container>
-    {authService.getUserRole() !== 'NONE' &&
+    {currentRole !== 'NONE' &&
     <>
       {/* Form for adding room */}
-      {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
+      {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
       <>
       <Form className='mt-3' onSubmit={handleAddRoomSubmit}>
         <Form.Group>
@@ -97,7 +102,7 @@ const Rooms = () => {
                   <td>{room.price}</td>
                   <td>{room.roomCapacity}</td>
                   <td>
-                  {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
+                  {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
                   <>
                     {/* <EditRoomModal {...room} {...handleEdit} /> */}
                     <Button className="mx-1" variant="danger" onClick={() => deleteRoom(room.uuid)}>Delete</Button>

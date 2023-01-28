@@ -4,13 +4,14 @@ import { Room } from "../../types"
 import { Button, Container, Form, Modal, Row, Table } from 'react-bootstrap';
 import { REST_API_URL } from '../../constants/global';
 import authHeader from '../../services/auth/auth-header';
-import authService from '../../services/auth/auth.service';
+import { authService } from '../../services/auth/auth.service';
 
 const API_URL_RENTS = REST_API_URL + 'rents';
 
 const RentRoom = () => {
   const [freeRooms, setFreeRooms] = useState<Room[]>([]);
-  const [login, setLogin] = useState<string>();
+  const [currentLogin, setCurrentLogin] = useState<any>();
+  const [currentRole, setCurrentRole] = useState<any>()
   const [roomId, setRoomId] = useState<string>();
   const [show, setShow] = useState(false);
 
@@ -22,9 +23,10 @@ const RentRoom = () => {
 
 
   useEffect(() => {
-    setLogin(authService.getLogin());
+    authService.currentLogin.subscribe((value) => setCurrentLogin(value)),
+    authService.currentRole.subscribe((value) => setCurrentRole(value))
     getAllFreeRooms();
-  }, []);
+  });
 
   const getAllFreeRooms = () => {
     axios.get(API_URL_RENTS + "/room", { headers: authHeader() })
@@ -35,18 +37,18 @@ const RentRoom = () => {
   }
 
   const getJavaDate = (date: Date) => {
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var hour = date.getHours();
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
     return year + "-0" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
   }
 
   const rentRoom = () => {
     const rentData = {
-      "login": login,
+      "login": currentLogin,
       "roomId": roomId,
       "beginTime": getJavaDate(new Date()),
       "endTime": "2080-01-01T18:00:00"
@@ -63,10 +65,10 @@ const RentRoom = () => {
 
   return (
     <Container>
-      {authService.getUserRole() !== 'NONE' &&
+      {currentRole !== 'NONE' &&
         <>
 
-          {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
+          {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
             <></>
           }
           <Table striped bordered hover variant="light">
@@ -87,7 +89,7 @@ const RentRoom = () => {
                       <td>{room.price}</td>
                       <td>{room.roomCapacity}</td>
                       <td>
-                        {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
+                        {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
                           <>
                             <Button className="mx-1" variant="primary" onClick={() => handleRentRoom(room.uuid)}>Rent</Button>
                           </>
