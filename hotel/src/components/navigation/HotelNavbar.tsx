@@ -35,7 +35,7 @@ const HotelNavbar = () => {
               {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
               <>
                 <NavDropdown title="Users" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action5">Show all users</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/users">Show all users</NavDropdown.Item>
                   <NavDropdown.Item href="#action6">Show all clients</NavDropdown.Item>
                 </NavDropdown>
               </>

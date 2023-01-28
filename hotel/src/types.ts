@@ -5,6 +5,12 @@ export interface Room {
   roomCapacity: number;
 }
 
+export interface User {
+  uuid: string;
+  login: string;
+  accessLevel: string;
+}
+
 export interface Rent {
   login: string;
   roomId: string;

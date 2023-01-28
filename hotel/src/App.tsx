@@ -5,6 +5,7 @@ import Rooms from './components/rooms/Rooms';
 import Login from './components/login/Login';
 import ChangePassword from './components/changePassword/ChangePassword';
 import RentRoom from './components/rents/RentRoom';
+import Users from "./components/users/Users";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/rooms",
         element: <Rooms />
+      },
+      {
+        path: "/users",
+        element: <Users />
       },
       {
         path: "/login",
