@@ -4,8 +4,8 @@ import { Room } from "../../types"
 import { Button, Container, Form, Row, Table } from 'react-bootstrap';
 import EditRoomModal from './EditRoomModal';
 import { REST_API_URL } from '../../constants/global';
-import authHeader from '../../services/auth-header';
-import authService from '../../services/auth.service';
+import authHeader from '../../services/auth/auth-header';
+import authService from '../../services/auth/auth.service';
 
 const API_URL_ROOMS = REST_API_URL + 'rooms/';
 

@@ -7,7 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Route, Link } from 'react-router-dom';
-import authService from '../../services/auth.service';
+import authService from '../../services/auth/auth.service';
 
 
 const HotelNavbar = () => {
@@ -57,9 +57,12 @@ const HotelNavbar = () => {
           </Nav>
           <Navbar.Brand>Your role is: {authService.getUserRole()}</Navbar.Brand>
           <Form className="d-flex">
-            <Link to="/changePassword">
-              <Button className="mx-1" variant="success" >Change password</Button>
-            </Link>
+            {authService.getUserRole() !== 'NONE' && <>
+                <Link to="/changePassword">
+                  <Button className="mx-1" variant="success" >Change password</Button>
+                </Link>
+              </>
+            }
             {authService.getUserRole() === 'NONE' &&
             <>
               <Link to="/login">

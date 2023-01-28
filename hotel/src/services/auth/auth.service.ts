@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { REST_API_URL } from "../constants/global";
+import { REST_API_URL } from "../../constants/global";
 import jwt_decode from 'jwt-decode'
 
 

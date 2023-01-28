@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
-import authService from "../../services/auth.service";
+import authService from "../../services/auth/auth.service";
 
 const Login = () => {
   const [login, setLogin] = useState("");

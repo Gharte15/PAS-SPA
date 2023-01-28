@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
-import authService from "../../services/auth.service";
+import authService from "../../services/auth/auth.service";
+import changePasswordService from "../../services/changePassword/changePassword.service"
 
 const ChangePassword = () => {
   const [login, setLogin] = useState("");
@@ -12,24 +13,15 @@ const ChangePassword = () => {
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
   const [newConfirmPasswordError, setNewConfirmPasswordError] = useState("");
 
-  //const dispatch = useAppDispatch();
-  //const [loginUser] = useLoginMutation();
-
   const navigate = useNavigate();
 
   const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    validateCompabilityNewPassswordConfirmPassword();
-    validateIfNewPasswordIsTheSameAsOldPassword(e);
-    // loginUser({ login, password })
-    //   .unwrap()
-    //   .then((res) => {
-    //     dispatch(setToken(res.access_token));
-    //     navigate("/products");
-    //   })
-    //   .catch((err) => {
-    //     setLoginError(`Log in failed - ${err.data.message}`);
-    //   });
+    if(validateCompabilityNewPassswordConfirmPassword() &&
+        validateIfNewPasswordIsNotTheSameAsOldPassword(e)) {
+      changePasswordService.changePassword(login, password, newPassword, newConfirmPassword);
+      navigate("/");
+    }
   };
 
   const validatePasswordNewPassword = (e: any) => {
@@ -45,7 +37,7 @@ const ChangePassword = () => {
     }
   };
 
-  const validateIfNewPasswordIsTheSameAsOldPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validateIfNewPasswordIsNotTheSameAsOldPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (newPassword != password) {
       setNewPasswordError("");
       return true;
