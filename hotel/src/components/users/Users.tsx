@@ -36,7 +36,6 @@ const Users = () => {
                             <th>User UUID</th>
                             <th>User login</th>
                             <th>User access</th>
-                            <th>Options</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,13 +46,6 @@ const Users = () => {
                                         <td>{user.uuid}</td>
                                         <td>{user.login}</td>
                                         <td>{user.accessLevel}</td>
-                                        <td>
-                                            {(authService.getUserRole() === 'ADMIN' || authService.getUserRole() === 'MANAGER') &&
-                                                <>
-                                                    {/* <EditRoomModal {...room} {...handleEdit} /> */}
-                                                </>
-                                            }
-                                        </td>
                                     </tr>
                                 )
                             })

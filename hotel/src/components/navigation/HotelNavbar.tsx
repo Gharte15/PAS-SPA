@@ -36,7 +36,6 @@ const HotelNavbar = () => {
               <>
                 <NavDropdown title="Users" id="navbarScrollingDropdown">
                   <NavDropdown.Item as={Link} to="/users">Show all users</NavDropdown.Item>
-                  <NavDropdown.Item href="#action6">Show all clients</NavDropdown.Item>
                 </NavDropdown>
               </>
               }
