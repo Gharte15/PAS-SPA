@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import ChangePassword from './components/changePassword/ChangePassword';
 import RentRoom from './components/rents/RentRoom';
 import Users from "./components/users/Users";
+import ShowRents from './components/rents/ShowRents';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/addRent",
         element: <RentRoom />
+      },
+      {
+        path: "/rents",
+        element: <ShowRents />
       }
     ],
   },

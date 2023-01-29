@@ -84,7 +84,7 @@ const Rooms = () => {
       </>
       }
       {/* Table with rooms and buttons for edit / delete */}
-      <Table striped bordered hover variant="light">
+      <Table striped bordered hover variant="light" className='mt-3'>
         <thead>
           <tr>
             <th>Room number</th>

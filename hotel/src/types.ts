@@ -12,6 +12,7 @@ export interface User {
 }
 
 export interface Rent {
+  id: string;
   login: string;
   roomId: string;
   beginTime: Date;

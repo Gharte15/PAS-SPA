@@ -33,7 +33,7 @@ const Users = () => {
       {currentRole !== 'NONE' &&
         <>
           {/* Table with users and buttons for edit / delete */}
-          <Table striped bordered hover variant="light">
+          <Table striped bordered hover variant="light" className='mt-5'>
             <thead>
               <tr>
                 <th>User UUID</th>

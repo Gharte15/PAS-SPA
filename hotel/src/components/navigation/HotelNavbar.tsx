@@ -31,20 +31,9 @@ const HotelNavbar = () => {
           >
             {currentRole !== 'NONE' &&
               <>
-                <NavDropdown title="Rooms" id="navbarScrollingDropdown">
-                  <NavDropdown.Item as={Link} to="/rooms">Show all rooms</NavDropdown.Item>
-                  {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
-                    <>
-                      <NavDropdown.Item href="#action4">Add room</NavDropdown.Item>
-                    </>
-                  }
-                </NavDropdown>
+                <Nav.Link as={Link} to="/rooms">Rooms</Nav.Link>
                 {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
-                  <>
-                    <NavDropdown title="Users" id="navbarScrollingDropdown">
-                      <NavDropdown.Item as={Link} to="/users">Show all users</NavDropdown.Item>
-                    </NavDropdown>
-                  </>
+                  <Nav.Link as={Link} to="/users">Users</Nav.Link>
                 }
                 <NavDropdown title="Rents" id="navbarScrollingDropdown">
                   {currentRole !== 'NONE' &&
@@ -52,9 +41,9 @@ const HotelNavbar = () => {
                       <NavDropdown.Item as={Link} to="/addRent">Rent a room</NavDropdown.Item>
                     </>
                   }
-                  {(currentRole === 'ADMIN' || currentRole === 'MANAGER') &&
+                  {(currentRole === 'ADMIN' || currentRole === 'MANAGER' || currentRole === 'CLIENT') &&
                     <>
-                      <NavDropdown.Item href="#action8">Show all rents</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/rents">Show rents</NavDropdown.Item>
                     </>
                   }
                 </NavDropdown>
