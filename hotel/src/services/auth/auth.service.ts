@@ -9,19 +9,21 @@ import { BehaviorSubject } from 'rxjs';
 const API_LOGIN_URL = REST_API_URL + 'login/'
 const currentRoleSubject = new BehaviorSubject(getUserRole())
 const currentLoginSubject = new BehaviorSubject(getLogin())
+const errorCodeSubject = new BehaviorSubject(0)
 
 export const authService = {
   login,
   logout,
   currentRole: currentRoleSubject.asObservable(),
-  get currentRoleValue () { return currentRoleSubject.value },
+  get currentRoleValue() { return currentRoleSubject.value },
   currentLogin: currentLoginSubject.asObservable(),
-  get currentLoginValue () { return currentLoginSubject.value }
+  get currentLoginValue() { return currentLoginSubject.value },
+  errorCode: errorCodeSubject.asObservable(),
+  get errorCodeValue() { return errorCodeSubject.value }
 }
 
 function login(login: any, password: any) {
-  return axios
-    .post(API_LOGIN_URL, {
+  return axios.post(API_LOGIN_URL, {
       login,
       password
     })
@@ -31,8 +33,10 @@ function login(login: any, password: any) {
         currentRoleSubject.next(getUserRole());
         currentLoginSubject.next(getLogin());
       }
-
-      return response.data;
+      return response.status;
+    })
+    .catch(error => {
+      return error.response.status;
     });
 }
 
@@ -55,16 +59,10 @@ function getUserRole() {
 }
 
 function getLogin() {
-  console.log(sessionStorage.getItem("token"));
+  // console.log(sessionStorage.getItem("token"));
   if (sessionStorage.getItem("token")) {
     const decodedJwt: any = jwt_decode(sessionStorage.getItem("token") || '{}');
     return decodedJwt.sub;
   }
   return ""
-}
-
-function showButton(userRole: any) {
-  if (userRole === "ADMIN") {
-    return true;
-  }
 }

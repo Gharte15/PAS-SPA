@@ -48,7 +48,6 @@ const RentRoom = () => {
       "beginTime": new Date().toISOString().split('.')[0],
       "endTime": "2080-01-01T18:00:00"
     };
-    console.log(rentData);
     axios.post(API_URL_RENTS, rentData, { headers: authHeader() },
     ).then(res => {
       handleClose();

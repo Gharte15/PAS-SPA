@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form } from "react-bootstrap";
 import { authService } from "../../services/auth/auth.service";
-import { createStore, useGlobalState } from 'state-pool'; 
+import { createStore, useGlobalState } from 'state-pool';
 
 const store = createStore();
 store.setState("userRole", "NONE");
@@ -13,13 +13,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [userRole, setUserRole] = useState("userRole");
-
   const navigate = useNavigate();
 
-  const handleSubmit: any = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleSubmit: any = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    authService.login(login, password);
-    navigate("/");
+    const response = authService.login(login, password);
+    if (await response !== 200) {
+      setLoginError("Wrong login or password.")
+    } else {
+      navigate("/")
+    }
   };
 
   return (
@@ -35,7 +39,6 @@ const Login = () => {
               <div className="login-group mb-4">
                 <div className="text-primary fw-bolder mb-2">
                   <label>Login</label>
-                  <p>{loginError}</p>
                 </div>
                 <Form.Control
                   value={login}
@@ -64,7 +67,7 @@ const Login = () => {
                 />
               </div>
 
-              <p className="text-center mt-2 mb-4 text-danger">{loginError}</p>
+              <div className="mt-2 mb-4 mx-2 text-danger">{loginError}</div>
 
               <Button
                 className="mx-1"

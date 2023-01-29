@@ -15,7 +15,6 @@ const EditRoomModal = (room: Room, onEdit: (room: Room) => any) => {
   };
 
   const handleSave = () => {
-    console.log(editedRoom);
     axios.put(API_URL_ROOMS, editedRoom)
       .then(res => onEdit(editedRoom));
     setShow(false);
